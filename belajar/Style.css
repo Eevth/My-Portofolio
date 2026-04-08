@@ -1,0 +1,210 @@
+/* Reset default bawaan browser */
+* { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+
+/* Smooth scroll untuk halaman */
+html { scroll-behavior: smooth; }
+/* Warna dasar halaman */
+body { background: #f9f9f9; color: #222; scroll-behavior: smooth; }
+
+/* Tombol toggle untuk sidebar */
+#toggle-btn { display: none; }
+.btn {
+  font-size: 20px; background: #333; color: #fff; padding: 10px 15px;
+  cursor: pointer; position: fixed; top: 10px; left: 10px;
+  border-radius: 5px; z-index: 2000; transition: background 0.3s;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+} 
+.btn:hover { background: #00ffea; }
+
+/* Sidebar menu samping */
+.sidebar {
+  position: fixed; top: 0; left: -260px;
+  width: 250px; height: 100%; background: #333;
+  padding: 70px 20px 20px; color: #fff;
+  transition: 0.3s; overflow-y: auto; z-index: 1500;
+  box-shadow: 2px 0 10px rgba(0,0,0,0.3);
+}
+/* Sidebar muncul kalau toggle diaktifkan */
+#toggle-btn:checked ~ .sidebar { left: 0; }
+#toggle-btn:checked ~ .content { margin-left: 260px; }
+
+/* Dropdown menu */
+.dropdown input[type="checkbox"] { display: none; }
+.dropdown label {
+  display: block; padding: 12px; background: #444;
+  border-radius: 5px; margin: 5px 0; cursor: pointer;
+  color: #fff; transition: 0.3s; font-weight: 500;
+}
+.dropdown label:hover { background:  #00ffea; transform: translateX(5px); }
+
+/* Isi dropdown yang bisa expand-collapse */
+.dropdown-content {
+  max-height: 0; overflow: hidden;
+  transition: max-height 0.4s ease; margin-left: 15px;
+}
+/* Kalau checkbox aktif → isi dropdown terbuka */
+.dropdown input:checked ~ .dropdown-content {
+  max-height: 800px; padding: 5px 0;
+}
+.dropdown-content li a {
+  display: block; padding: 10px 15px; margin: 3px 0;
+  background: #3c3c3c; border-radius: 4px; color: #fff;
+  font-size: 14px; text-decoration: none; transition: 0.2s;
+}
+.dropdown-content li a:hover { 
+  background:  #00ffea; transform: translateX(5px); 
+}
+
+/* Bagian konten utama */
+.content {
+  margin-left: 0; padding: 20px;
+  transition: margin-left 0.3s ease; counter-reset: section;
+}
+
+/* Home section tanpa nomor */
+.home-section .card h2::before {
+  content: none;
+}
+
+/* Card pilihan tanpa nomor */
+.choice-card h2::before {
+  content: none;
+}
+
+/* Style kartu konten */
+.card {
+  background: #f5f5f5; padding: 20px; margin: 30px 0;
+  border-radius: 12px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  opacity: 0; animation: alus 1s ease forwards;
+  border-left: 4px solid  #00ffea;
+}
+/* Efek highlight saat target di klik */
+.card:target { 
+  animation: alus 0.5s ease forwards; 
+  background: #fff;
+  box-shadow: 0 6px 20px rgba(0,158,96,0.15);
+  border-left-color:  #00ffea;
+}
+
+/* Animasi muncul halus */
+@keyframes alus { 
+  from { opacity: 0; transform: translateY(30px);} 
+  to {opacity:1; transform: translateY(0);} 
+}
+/* Animasi fadeIn */
+@keyframes fadeIn { 
+  from { opacity:0; transform:translateY(-50px);} 
+  to {opacity:1; transform:translateY(0);} 
+}
+
+/* Penomoran otomatis heading dalam card */
+.card h2::before {
+  counter-increment: section; content: counter(section) ". ";
+  color:  #00ffea; font-weight: bold; margin-right: 5px;
+}
+.card h2 {
+  color: #333; margin-bottom: 15px; font-size: 1.4em;
+}
+
+/* Styling untuk code block */
+pre {
+  background: #222; color: rgb(0, 255, 204);
+  padding: 15px; border-radius: 8px; overflow-x: auto;
+  font-family: 'Courier New', monospace;
+  font-size: 14px; line-height: 1.5;
+  border-left: 3px solid  #00ffea;
+}
+code {
+  background: #f4f4f4;
+  padding: 3px 6px;
+  border-radius: 4px;
+  color: #3361d6;
+  font-family: 'Courier New', monospace;
+  border: 1px solid #e0e0e0;
+}
+
+/* Grid pilihan di home */
+.home-choice {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 25px; margin: 25px 0;
+}
+.choice-card {
+  background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+  padding: 25px; border-radius: 12px; text-align: center;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transition: all 0.3s ease; opacity:0; animation: fadeIn 1s ease forwards;
+  border: 1px solid rgba(0,158,96,0.1);
+}
+/* Delay animasi tiap card */
+.choice-card:nth-child(1) { animation-delay: 0.2s; }
+.choice-card:nth-child(2) { animation-delay: 0.4s; }
+/* Hover effect kartu pilihan */
+.choice-card:hover { 
+  transform: translateY(-8px); 
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  border-color:  #00ffea;
+}
+.choice-card h2 { 
+  margin-bottom: 12px; 
+  color: #333; 
+  font-size: 1.6em;
+  background: linear-gradient(135deg, #00ffead0, #00ffead0);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.choice-card p { 
+  font-size: 15px; 
+  margin-bottom: 20px; 
+  color: #555; 
+  line-height: 1.6;
+}
+.choice-btn {
+  display: inline-block; padding: 12px 25px; background: linear-gradient(135deg,  #00ffea,  #00ffea);
+  color: #fff; border-radius: 25px; text-decoration: none; 
+  transition: all 0.3s; font-weight: 500;
+  box-shadow: 0 3px 10px rgba(0,158,96,0.3);
+}
+.choice-btn:hover { 
+  background: linear-gradient(135deg,   #00ffead0,  #00ffea);
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(0,158,96,0.4);
+}
+
+/* Smooth scroll jarak biar ga ketiban navbar */
+.card {
+  scroll-margin-top: 70px;
+}
+
+/* Styling gambar dalam card */
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  margin: 15px 0;
+  transition: transform 0.3s ease;
+}
+.card img:hover {
+  transform: scale(1.02);
+  box-shadow: 0 6px 20px rgb(130, 234, 238)
+}
+
+/* Responsive layout untuk tablet/hp */
+@media (max-width: 768px) {
+  .btn {
+    top: 15px; left: 15px; padding: 8px 12px; font-size: 18px;
+  }
+  .sidebar {
+    width: 280px; left: -280px;
+  }
+  #toggle-btn:checked ~ .content { margin-left: 280px; }
+  .content { padding: 15px; }
+  .home-choice {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+  .choice-card {
+    padding: 20px;
+  }
+}
